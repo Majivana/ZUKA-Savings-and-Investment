@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ZUKA Savings and Investment - Empowering youth and graduates to build wealth through accessible financial instruments">
-    <title>ZUKA Savings & Investment | Build Your Financial Future</title>
+    <meta name="description" content="ZUKA Savings and Investment - Removing barriers for youth financial empowerment">
+    <title>ZUKA Savings & Investment | Building Wealth for Youth</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
         :root {
             --primary: #4361ee;
@@ -22,8 +23,11 @@
             --success: #28a745;
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
-            --border-radius: 8px;
-            --transition: all 0.3s ease;
+            --border-radius: 12px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --whatsapp-green: #25D366;
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary) 0%, #04aa84 100%);
         }
 
         * {
@@ -34,62 +38,111 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            line-height: 1.7;
             color: #333;
             background-color: #ffffff;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.05) 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, rgba(6, 214, 160, 0.05) 0%, transparent 20%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        body.loaded::before {
+            opacity: 1;
         }
 
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 1rem;
+            line-height: 1.3;
+            margin-bottom: 1.2rem;
             color: var(--dark);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
         }
 
         .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 2rem;
         }
 
         .btn {
-            display: inline-block;
-            padding: 0.8rem 1.8rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.9rem 2rem;
             border-radius: var(--border-radius);
             text-decoration: none;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 1.05rem;
             cursor: pointer;
             transition: var(--transition);
             border: none;
+            position: relative;
+            overflow: hidden;
+            gap: 0.8rem;
             text-align: center;
         }
 
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+            z-index: 1;
+        }
+
+        .btn:hover::before {
+            transform: translateX(0);
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 2;
+        }
+
         .btn-primary {
-            background: var(--primary);
+            background: var(--gradient-primary);
             color: white;
-            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.6);
         }
 
         .btn-secondary {
-            background: var(--secondary);
+            background: var(--gradient-secondary);
             color: white;
-            box-shadow: 0 4px 10px rgba(6, 214, 160, 0.3);
+            box-shadow: 0 4px 15px rgba(6, 214, 160, 0.4);
         }
 
         .btn-secondary:hover {
-            background: #05c495;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(6, 214, 160, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(6, 214, 160, 0.6);
         }
 
         .btn-outline {
@@ -101,31 +154,91 @@
         .btn-outline:hover {
             background: var(--primary);
             color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-whatsapp {
+            background: var(--whatsapp-green);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+            background: #128C7E;
         }
 
         .section {
-            padding: 5rem 0;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .section-content {
+            position: relative;
+            z-index: 2;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 2.8rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
         }
 
         .section-title p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--gray);
+            margin-top: 1.5rem;
             max-width: 700px;
-            margin: 0 auto;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .section-light {
             background-color: var(--light);
+        }
+
+        .section-dark {
+            background: linear-gradient(135deg, #073b4c 0%, #118ab2 100%);
+            color: white;
+        }
+
+        .section-dark h1, .section-dark h2, .section-dark h3, .section-dark h4, 
+        .section-dark h5, .section-dark h6, .section-dark p, .section-dark a {
+            color: white;
         }
 
         /* Header Styles */
@@ -135,100 +248,161 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: white;
-            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             transition: var(--transition);
+            padding: 0.8rem 0;
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 0 2rem;
         }
 
-        .logo {
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            transition: var(--transition);
+            object-fit: contain;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
             font-family: 'Poppins', sans-serif;
             font-weight: 800;
             font-size: 1.8rem;
             color: var(--primary);
             text-decoration: none;
+            position: relative;
+            display: inline-block;
         }
 
-        .logo span {
+        .logo-text span {
             color: var(--secondary);
+        }
+
+        .logo-text::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 3px;
+            transform: scaleX(0);
+            transition: var(--transition);
+            transform-origin: right;
+        }
+
+        .logo-text:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
+            margin-right: 3rem;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--dark);
             font-weight: 500;
+            font-size: 1.05rem;
             transition: var(--transition);
             position: relative;
+            padding: 0.6rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2.5px;
+            background: var(--primary);
+            border-radius: 2.5px;
+            transition: var(--transition);
         }
 
         .nav-links a:hover {
             color: var(--primary);
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
+        .nav-links a:hover::after {
+            width: 70%;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-links a.active {
+            color: var(--primary);
+        }
+
+        .nav-links a.active::after {
+            width: 70%;
+            background: var(--secondary);
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--dark);
             cursor: pointer;
+            transition: var(--transition);
+            padding: 0.6rem;
+            border-radius: 50%;
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--light-gray);
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn.active i {
+            color: var(--primary);
         }
 
         /* Hero Section */
         .hero {
-            padding: 10rem 0 6rem;
-            background: linear-gradient(135deg, #f8f9ff 0%, #eef2ff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
             position: relative;
             overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(67, 97, 238, 0.1) 0%, transparent 70%);
-            z-index: 0;
+            padding-top: 80px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #eef2ff 100%);
         }
 
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
             max-width: 650px;
+            animation: slideUp 1s ease forwards;
+            animation-delay: 0.2s;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             margin-bottom: 1.5rem;
+            line-height: 1.2;
             background: linear-gradient(90deg, var(--dark) 0%, var(--primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -236,16 +410,17 @@
         }
 
         .hero p {
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             color: var(--gray);
-            margin-bottom: 2rem;
-            max-width: 600px;
+            margin-bottom: 2.5rem;
+            max-width: 650px;
+            line-height: 1.8;
         }
 
-        .hero-cta {
+        .hero-buttons {
             display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
         }
 
         .hero-image {
@@ -254,9 +429,11 @@
             top: 50%;
             transform: translateY(-50%);
             width: 45%;
-            max-width: 600px;
-            z-index: 0;
-            opacity: 0.9;
+            max-width: 650px;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInRight 1s ease forwards;
+            animation-delay: 0.6s;
         }
 
         .hero-image img {
@@ -264,193 +441,446 @@
             height: auto;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-lg);
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(-50%) translateX(0); }
-            50% { transform: translateY(-50%) translateX(10px); }
+            border: 3px solid white;
         }
 
         /* Problem Section */
-        .problem {
+        .problem-section {
             background: white;
-        }
-
-        .problem-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .problem-text h2 {
-            font-size: 2.2rem;
-            color: var(--dark);
-        }
-
-        .problem-text p {
-            margin-bottom: 1.5rem;
-            color: var(--gray);
-        }
-
-        .problem-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        .problem-card {
-            background: var(--light);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .problem-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .problem-card i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .problem-card h3 {
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .problem-card p {
-            color: var(--gray);
-            margin-bottom: 0;
-        }
-
-        /* Solution Section */
-        .solution {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
             position: relative;
-            overflow: hidden;
         }
 
-        .solution::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
-            opacity: 0.2;
-        }
-
-        .solution-content {
-            position: relative;
-            z-index: 1;
+        .problem-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
         }
 
-        .solution-text h2 {
-            font-size: 2.5rem;
-            color: white;
+        .problem-text {
+            animation: slideUp 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .problem-text h2 {
+            font-size: 2.4rem;
+            color: var(--dark);
+            margin-bottom: 1.8rem;
+        }
+
+        .problem-text p {
+            margin-bottom: 1.8rem;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        .problem-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            animation: slideUp 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 2.2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--light-gray);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(67, 97, 238, 0.3);
+        }
+
+        .problem-card:hover::before {
+            opacity: 0.08;
+        }
+
+        .problem-card i {
+            font-size: 3.2rem;
+            color: var(--primary);
             margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .problem-card:hover i {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .problem-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+
+        .problem-card p {
+            color: var(--gray);
+            margin-bottom: 0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            background: var(--gradient-primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.08)"/></svg>');
+            background-size: cover;
+            opacity: 0.6;
+        }
+
+        .solution-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .solution-text {
+            position: relative;
+            z-index: 2;
+            animation: slideUp 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .solution-text h2 {
+            font-size: 2.6rem;
+            color: white;
+            margin-bottom: 1.8rem;
         }
 
         .solution-text p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            opacity: 0.9;
+            margin-bottom: 1.8rem;
+            font-size: 1.15rem;
+            opacity: 0.95;
+            line-height: 1.8;
         }
 
         .solution-features {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 1.8rem;
+            margin-top: 2.5rem;
         }
 
         .feature {
             display: flex;
             align-items: flex-start;
-            gap: 1rem;
+            gap: 1.2rem;
+            position: relative;
+            padding-left: 0.8rem;
+        }
+
+        .feature::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 4px;
+            height: calc(100% - 24px);
+            background: var(--secondary);
+            border-radius: 2px;
         }
 
         .feature i {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--secondary);
-            margin-top: 0.25rem;
+            margin-top: 0.3rem;
+            min-width: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .feature-text h3 {
             color: white;
-            margin-bottom: 0.25rem;
-            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
+            font-size: 1.4rem;
         }
 
         .feature-text p {
             margin-bottom: 0;
-            opacity: 0.85;
+            opacity: 0.9;
+            font-size: 1.05rem;
+            line-height: 1.7;
         }
 
-        /* CTA Section */
-        .cta-section {
-            text-align: center;
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #f8f9ff 0%, #eef2ff 100%);
-        }
-
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta-content h2 {
-            font-size: 2.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-content p {
-            font-size: 1.2rem;
-            color: var(--gray);
-            margin-bottom: 2.5rem;
-        }
-
-        .cta-buttons {
+        .solution-image {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 1s ease forwards;
+            animation-delay: 0.6s;
+            height: 450px;
+            background: white;
             display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
+        }
+
+        .solution-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .solution-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: white;
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3.5rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: var(--light);
+            padding: 2.8rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px;
+            animation: slideUp 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 1.8rem;
+            font-size: 2rem;
+        }
+
+        .contact-details {
+            margin-bottom: 2.2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .contact-icon {
+            min-width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        .contact-text h4 {
+            color: var(--dark);
+            margin-bottom: 0.4rem;
+            font-size: 1.3rem;
+        }
+
+        .contact-text p, .contact-text a {
+            color: var(--gray);
+            margin: 0;
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            font-size: 1.05rem;
+        }
+
+        .contact-text a:hover {
+            color: var(--primary);
+        }
+
+        .contact-hours {
+            background: white;
+            padding: 1.8rem;
+            border-radius: var(--border-radius);
+            margin-top: 1.5rem;
+            border-left: 4px solid var(--secondary);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-hours h4 {
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2.8rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            animation: slideUp 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.7rem;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.4rem;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.25);
+        }
+
+        textarea.form-control {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 1.1rem 2.2rem;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.6);
+        }
+
+        .form-note {
+            font-size: 0.95rem;
+            color: var(--gray);
+            margin-top: 0.6rem;
+            font-style: italic;
         }
 
         /* Footer */
         footer {
             background: var(--dark);
             color: white;
-            padding: 4rem 0 2rem;
+            padding: 5rem 0 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(17, 138, 178, 0.1) 0%, transparent 40%);
+            z-index: 0;
         }
 
         .footer-content {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 2.5rem;
+            gap: 2.8rem;
+            position: relative;
+            z-index: 2;
         }
 
         .footer-logo {
             font-family: 'Poppins', sans-serif;
             font-weight: 800;
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: white;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            display: inline-block;
         }
 
         .footer-logo span {
@@ -458,36 +888,83 @@
         }
 
         .footer-about p {
-            color: #aaa;
-            margin-bottom: 1.5rem;
+            color: #bbb;
+            margin-bottom: 1.8rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: #bbb;
+            align-items: flex-start;
+        }
+
+        .footer-contact-item i {
+            color: var(--secondary);
+            margin-top: 0.4rem;
+            font-size: 1.1rem;
+            min-width: 20px;
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             color: white;
             transition: var(--transition);
+            font-size: 1.2rem;
+            text-decoration: none;
         }
 
         .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
+
+        .social-links a.whatsapp {
+            background: var(--whatsapp-green);
+        }
+
+        .social-links a.whatsapp:hover {
+            background: #128C7E;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .social-links a.facebook:hover { background: #3b5998; }
+        .social-links a.twitter:hover { background: #1da1f2; }
+        .social-links a.instagram:hover { background: #e1306c; }
+        .social-links a.linkedin:hover { background: #0077b5; }
 
         .footer-links h3 {
             color: white;
-            margin-bottom: 1.5rem;
-            font-size: 1.3rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.6rem;
+        }
+
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
         }
 
         .footer-links ul {
@@ -495,14 +972,26 @@
         }
 
         .footer-links li {
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.9rem;
         }
 
         .footer-links a {
-            color: #aaa;
+            color: #bbb;
             text-decoration: none;
             transition: var(--transition);
             display: block;
+            font-size: 1.05rem;
+            position: relative;
+            padding-left: 1.4rem;
+        }
+
+        .footer-links a::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            opacity: 0;
+            transition: var(--transition);
+            color: var(--secondary);
         }
 
         .footer-links a:hover {
@@ -510,27 +999,169 @@
             transform: translateX(5px);
         }
 
+        .footer-links a:hover::before {
+            opacity: 1;
+        }
+
         .copyright {
             text-align: center;
             padding-top: 3rem;
             color: #aaa;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 3rem;
+            margin-top: 3.5rem;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 2;
         }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2.5rem;
+            right: 2.5rem;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.7rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .whatsapp-float.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .whatsapp-button {
+            background: var(--whatsapp-green);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.6);
+            text-decoration: none;
+            font-size: 1.8rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .whatsapp-button:hover {
+            transform: scale(1.1) rotate(12deg);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.8);
+        }
+
+        .whatsapp-button i {
+            position: relative;
+            z-index: 2;
+        }
+
+        .whatsapp-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: var(--transition);
+        }
+
+        .whatsapp-button:hover::before {
+            transform: rotate(90deg);
+        }
+
+        .whatsapp-text {
+            background: white;
+            color: #333;
+            padding: 0.7rem 1.4rem;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+            border: 2px solid var(--whatsapp-green);
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .hero-image {
-                width: 40%;
-            }
-            
-            .problem-content,
-            .solution-content {
+            .problem-container,
+            .solution-container,
+            .contact-container,
+            .footer-content {
                 grid-template-columns: 1fr;
+            }
+            
+            .problem-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-content {
+                text-align: center;
+                max-width: 100%;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
             }
             
             .hero-image {
@@ -538,12 +1169,19 @@
                 transform: none;
                 top: auto;
                 right: auto;
+                width: 100%;
+                max-width: 500px;
                 margin: 3rem auto 0;
-                display: block;
+                animation-delay: 1s;
             }
             
-            .solution-features {
-                grid-template-columns: 1fr;
+            .solution-image {
+                margin-top: 2rem;
+            }
+            
+            .contact-info {
+                position: static;
+                margin-bottom: 2rem;
             }
         }
 
@@ -554,17 +1192,20 @@
             
             .nav-links {
                 position: fixed;
-                top: 70px;
+                top: 85px;
                 left: -100%;
                 width: 100%;
-                height: calc(100vh - 70px);
+                height: calc(100vh - 85px);
                 background: white;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                gap: 2rem;
+                gap: 2.8rem;
                 transition: var(--transition);
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+                padding: 2rem;
+                margin-right: 0;
+                z-index: 999;
             }
             
             .nav-links.active {
@@ -572,150 +1213,225 @@
             }
             
             .hero {
-                padding: 8rem 0 4rem;
+                min-height: auto;
+                padding: 10rem 0 5rem;
             }
             
             .hero h1 {
-                font-size: 2.3rem;
+                font-size: 2.8rem;
             }
             
             .hero p {
-                font-size: 1.1rem;
+                font-size: 1.15rem;
             }
             
-            .hero-cta {
+            .hero-buttons {
                 flex-direction: column;
                 gap: 1rem;
             }
             
             .section-title h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
-            .problem-cards {
+            .problem-card {
+                padding: 1.8rem;
+            }
+            
+            .problem-card i {
+                font-size: 2.5rem;
+            }
+            
+            .whatsapp-float {
+                bottom: 1.8rem;
+                right: 1.8rem;
+            }
+            
+            .form-grid {
                 grid-template-columns: 1fr;
             }
             
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
+            footer {
+                padding: 4rem 0 2.5rem;
             }
         }
 
         @media (max-width: 576px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.3rem;
             }
             
             .section {
-                padding: 3rem 0;
+                padding: 4rem 0;
             }
             
             .section-title h2 {
-                font-size: 1.8rem;
+                font-size: 1.9rem;
+            }
+            
+            .section-title p {
+                font-size: 1.05rem;
             }
             
             .btn {
-                display: block;
+                padding: 0.8rem 1.6rem;
+                font-size: 0.95rem;
                 width: 100%;
             }
             
-            .hero-cta {
+            .hero-buttons {
                 flex-direction: column;
             }
             
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .solution-text h2 {
+            .problem-text h2, .solution-text h2 {
                 font-size: 2rem;
             }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+            
+            .whatsapp-button {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .whatsapp-text {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .logo-img {
+                height: 40px;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .header-container {
+                padding: 0 1.5rem;
+            }
+            
+            .container {
+                padding: 0 1.5rem;
             }
         }
 
-        .animate-fadeInUp {
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .delay-1 {
-            animation-delay: 0.2s;
-        }
-
-        .delay-2 {
-            animation-delay: 0.4s;
-        }
-
-        .delay-3 {
-            animation-delay: 0.6s;
-        }
-
-        /* Form Styles */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--dark);
-        }
-
-        .form-control {
+        /* Complex Particle Animation */
+        #particles-js {
+            position: fixed;
             width: 100%;
-            padding: 0.8rem 1.2rem;
-            border: 2px solid var(--light-gray);
-            border-radius: var(--border-radius);
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            transition: var(--transition);
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 1.5s ease;
         }
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        #particles-js.visible {
+            opacity: 1;
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
+        /* Loading Animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
         }
 
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+        .loading-logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
         }
+
+        .loading-logo span {
+            color: var(--secondary);
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 6px;
+            background: var(--light-gray);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: var(--gradient-primary);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .loading-text {
+            color: var(--gray);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Floating Elements Animation */
+        .float-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .float-delay-1 { animation-delay: -1s; }
+        .float-delay-2 { animation-delay: -2s; }
+        .float-delay-3 { animation-delay: -3s; }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <i class="fas fa-chart-line"></i>
+            <span>Z<span>U</span>KA</span>
+        </div>
+        <div class="loading-progress">
+            <div class="loading-bar" id="loadingBar"></div>
+        </div>
+        <div class="loading-text">Loading experience...</div>
+    </div>
+
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
     <!-- Header Section -->
     <header>
-        <div class="container header-container">
-            <a href="#" class="logo">Z<span>U</span>KA</a>
+        <div class="header-container">
+            <a href="#" class="logo-container">
+                <img src="logo.png" alt="ZUKA Savings and Investment Logo" class="logo-img">
+                <span class="logo-text">Z<span>U</span>KA</span>
+            </a>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#problem">The Problem</a></li>
+                <li><a href="#problem" class="active">The Problem</a></li>
                 <li><a href="#solution">Our Solution</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="#get-started" class="btn btn-outline">Get Started</a></li>
@@ -726,49 +1442,68 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <div class="hero-content animate-fadeInUp">
-                <h1>Empowering Youth to Build Wealth Through Accessible Finance</h1>
+            <div class="hero-content">
+                <h1>Removing Financial Barriers for Youth</h1>
                 <p>ZUKA Savings and Investment removes social and economic barriers, giving young people and graduates the financial tools they need to create a brighter future.</p>
-                <div class="hero-cta">
-                    <a href="#get-started" class="btn btn-primary">Start Investing Today</a>
-                    <a href="#learn-more" class="btn btn-secondary">Learn More</a>
+                <div class="hero-buttons">
+                    <a href="#get-started" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        <span>Start Your Journey</span>
+                    </a>
+                    <a href="#solution" class="btn btn-secondary">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Learn More</span>
+                    </a>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1602101141918-45c9b6a18651?auto=format&fit=crop&w=600&q=80" alt="Young professionals discussing investments">
+                <img src="https://images.unsplash.com/photo-1593692909686-4e8f8cada25e?auto=format&fit=crop&w=600&q=80" alt="Youth financial empowerment" class="float-element float-delay-1">
             </div>
         </div>
     </section>
 
     <!-- Problem Section -->
-    <section class="section problem" id="problem">
+    <section class="section problem-section" id="problem">
         <div class="container">
             <div class="section-title">
                 <h2>The Challenge Facing Our Youth</h2>
                 <p>Historical barriers continue to limit opportunities for young people to build financial security and contribute meaningfully to economic development.</p>
             </div>
-            <div class="problem-content">
-                <div class="problem-text animate-fadeInUp delay-1">
+            
+            <div class="problem-container">
+                <div class="problem-text animate-on-scroll">
                     <h2>Breaking Down the Barriers</h2>
                     <p>Historical student debt, skills gaps, and lack of financial literacy continue to undermine the progress and growth of young people, preventing them from becoming positive contributors in their own socio-economic development and that of their country.</p>
                     <p>These systemic challenges create a cycle that's difficult to break without targeted intervention and accessible financial instruments designed specifically for youth needs.</p>
-                    <a href="#solution" class="btn btn-primary">Discover Our Solution</a>
+                    <a href="#solution" class="btn btn-primary">
+                        <i class="fas fa-arrow-right"></i>
+                        <span>Discover Our Solution</span>
+                    </a>
                 </div>
+                
                 <div class="problem-cards">
-                    <div class="problem-card animate-fadeInUp delay-2">
+                    <div class="problem-card animate-on-scroll">
                         <i class="fas fa-graduation-cap"></i>
                         <h3>Student Debt Burden</h3>
-                        <p>Overwhelming debt prevents graduates from investing in their future and building wealth early.</p>
+                        <p>Overwhelming debt prevents graduates from investing in their future and building wealth early. This creates a significant barrier to financial independence and long-term prosperity.</p>
                     </div>
-                    <div class="problem-card animate-fadeInUp delay-3">
+                    
+                    <div class="problem-card animate-on-scroll delay-1">
                         <i class="fas fa-brain"></i>
                         <h3>Skills Gap</h3>
-                        <p>Lack of practical financial knowledge creates barriers to making sound investment decisions.</p>
+                        <p>Lack of practical financial knowledge creates barriers to making sound investment decisions. Many young people simply don't have the education needed to navigate complex financial systems.</p>
                     </div>
-                    <div class="problem-card animate-fadeInUp">
+                    
+                    <div class="problem-card animate-on-scroll delay-2">
                         <i class="fas fa-chart-line"></i>
                         <h3>Limited Access</h3>
-                        <p>Traditional financial systems often exclude youth and unemployed graduates from wealth-building opportunities.</p>
+                        <p>Traditional financial systems often exclude youth and unemployed graduates from wealth-building opportunities. High minimum investments and complex requirements create unnecessary barriers.</p>
+                    </div>
+                    
+                    <div class="problem-card animate-on-scroll delay-3">
+                        <i class="fas fa-hand-holding-usd"></i>
+                        <h3>Economic Exclusion</h3>
+                        <p>Many young people are locked out of the formal economy due to lack of credit history, collateral, or established income streams. This perpetuates cycles of poverty and limits economic mobility.</p>
                     </div>
                 </div>
             </div>
@@ -776,80 +1511,272 @@
     </section>
 
     <!-- Solution Section -->
-    <section class="section solution" id="solution">
+    <section class="section solution-section" id="solution">
         <div class="container">
-            <div class="solution-content">
-                <div class="solution-text animate-fadeInUp">
-                    <h2>ZUKA Savings & Investment</h2>
-                    <p>ZUKA is an innovative mutual savings and investment vehicle specifically designed to give leverage to youth and unemployed graduates. We provide progressive financial tools that remove barriers and create real wealth-building opportunities.</p>
-                    <p>Our approach combines accessible investment options with comprehensive financial education, empowering young people to take control of their financial futures.</p>
+            <div class="section-title">
+                <h2>ZUKA Savings & Investment</h2>
+                <p>A mutual savings and investment vehicle designed specifically for youth and unemployed graduates to access progressive financial tools and create real wealth.</p>
+            </div>
+            
+            <div class="solution-container">
+                <div class="solution-text animate-on-scroll">
+                    <h2>Our Innovative Approach</h2>
+                    <p>ZUKA is more than just an investment platform - it's a comprehensive ecosystem designed to empower young people with the tools, knowledge, and community support they need to build lasting wealth and become positive contributors to socio-economic development.</p>
+                    <p>Our approach combines accessible investment options with comprehensive financial education, creating a holistic solution that addresses both the symptoms and root causes of financial exclusion.</p>
                     
                     <div class="solution-features">
-                        <div class="feature animate-fadeInUp delay-1">
+                        <div class="feature animate-on-scroll">
                             <i class="fas fa-hand-holding-heart"></i>
                             <div class="feature-text">
                                 <h3>Accessible Finance</h3>
-                                <p>Low barrier to entry with flexible contribution options</p>
+                                <p>Low barrier to entry with flexible contribution options that work for your budget and lifestyle.</p>
                             </div>
                         </div>
-                        <div class="feature animate-fadeInUp delay-2">
+                        
+                        <div class="feature animate-on-scroll delay-1">
                             <i class="fas fa-graduation-cap"></i>
                             <div class="feature-text">
                                 <h3>Financial Literacy</h3>
-                                <p>Comprehensive education programs to build confidence</p>
+                                <p>Comprehensive education programs to build confidence and capability in making sound financial decisions.</p>
                             </div>
                         </div>
-                        <div class="feature animate-fadeInUp delay-3">
+                        
+                        <div class="feature animate-on-scroll delay-2">
                             <i class="fas fa-chart-line"></i>
                             <div class="feature-text">
                                 <h3>Wealth Creation</h3>
-                                <p>Diversified investment options for long-term growth</p>
+                                <p>Diversified investment options designed for long-term growth and real wealth accumulation.</p>
                             </div>
                         </div>
-                        <div class="feature animate-fadeInUp">
+                        
+                        <div class="feature animate-on-scroll delay-3">
                             <i class="fas fa-users"></i>
                             <div class="feature-text">
                                 <h3>Community Support</h3>
-                                <p>Peer-to-peer learning and mentorship networks</p>
+                                <p>Peer-to-peer learning and mentorship networks that provide guidance and accountability.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="solution-image animate-fadeInUp delay-2">
-                    <!-- Image will be added via JavaScript for better performance -->
+                
+                <div class="solution-image animate-on-scroll delay-2">
+                    <img src="https://images.unsplash.com/photo-1595430057211-7c11c91a32a7?auto=format&fit=crop&w=600&q=80" alt="Wealth building for youth" class="float-element float-delay-2">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section" id="get-started">
+    <section class="section section-light" id="get-started">
         <div class="container">
-            <div class="cta-content animate-fadeInUp">
+            <div class="section-title">
                 <h2>Ready to Build Your Financial Future?</h2>
                 <p>Join thousands of young people who are taking control of their financial destiny with ZUKA Savings and Investment. Start your journey today with no minimum investment required.</p>
-                <div class="cta-buttons">
-                    <a href="#contact" class="btn btn-primary">Get Started Now</a>
-                    <a href="tel:+27123456789" class="btn btn-outline">Call Us: +27 123 456 789</a>
+            </div>
+            
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2.5rem;">
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Get Started Now</span>
+                    </a>
+                    <a href="tel:+27815876250" class="btn btn-outline">
+                        <i class="fas fa-phone"></i>
+                        <span>Call: +27 81 587 6250</span>
+                    </a>
+                    <a href="https://wa.me/27815876250" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp Support</span>
+                    </a>
+                </div>
+                
+                <div style="background: white; padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--shadow-lg); border: 2px solid var(--primary);">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+                        <div style="background: var(--gradient-primary); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <i class="fas fa-trophy" style="color: white; font-size: 2.5rem;"></i>
+                        </div>
+                        <div style="text-align: left;">
+                            <h3 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1.5rem;">Why Choose ZUKA?</h3>
+                            <p style="color: var(--gray); margin: 0; font-size: 1.1rem;">We're committed to your success with personalized support, transparent fees, and a community that grows with you.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section section-light" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>Have questions or ready to start your financial journey? Contact us today and let's work together to build your brighter future.</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info animate-on-scroll">
+                    <h3>Contact Information</h3>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Our Location</h4>
+                                <p>Johannesburg, South Africa</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone Number</h4>
+                                <a href="tel:+27815876250">+27 81 587 6250</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>WhatsApp</h4>
+                                <a href="https://wa.me/27815876250">+27 81 587 6250</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email Address</h4>
+                                <a href="mailto:info@zukainvest.com">info@zukainvest.com</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-hours">
+                        <h4>Business Hours</h4>
+                        <p><strong>Monday - Friday:</strong> 8:00 AM - 6:00 PM</p>
+                        <p><strong>Saturday:</strong> 9:00 AM - 1:00 PM</p>
+                        <p><strong>Sunday:</strong> Closed</p>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://wa.me/27815876250" class="whatsapp" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="facebook" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="twitter" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="instagram" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="linkedin" target="_blank">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-form animate-on-scroll delay-1">
+                    <form id="contactForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" id="name" class="form-control" placeholder="Your full name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" class="form-control" placeholder="your@email.com" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="+27 123 456 789" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject" class="form-label">Subject</label>
+                                <select id="subject" class="form-control" required>
+                                    <option value="">Select a subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="investment">Investment Opportunities</option>
+                                    <option value="partnership">Partnership Opportunities</option>
+                                    <option value="support">Technical Support</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="message" class="form-label">Your Message</label>
+                                <textarea id="message" class="form-control" placeholder="How can we help you today?" required></textarea>
+                                <p class="form-note">We respond to all inquiries within 24 hours during business days.</p>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> <span>Send Message</span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="contact">
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-about">
                     <div class="footer-logo">Z<span>U</span>KA</div>
                     <p>ZUKA Savings and Investment is an innovative approach designed to remove social and economic barriers so youth can access financial instruments to create and realize a brighter future.</p>
+                    
+                    <div class="footer-contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <strong>Phone:</strong> <a href="tel:+27815876250">+27 81 587 6250</a>
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <strong>WhatsApp:</strong> <a href="https://wa.me/27815876250">+27 81 587 6250</a>
+                        </div>
+                    </div>
+                    <div class="footer-contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email:</strong> <a href="mailto:info@zukainvest.com">info@zukainvest.com</a>
+                        </div>
+                    </div>
+                    
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/27815876250" class="whatsapp" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="facebook" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="twitter" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="instagram" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="linkedin" target="_blank">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
                     </div>
                 </div>
+                
                 <div class="footer-links">
                     <h3>Quick Links</h3>
                     <ul>
@@ -857,8 +1784,10 @@
                         <li><a href="#solution">Our Solution</a></li>
                         <li><a href="#how-it-works">How It Works</a></li>
                         <li><a href="#success-stories">Success Stories</a></li>
+                        <li><a href="#get-started">Get Started</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-links">
                     <h3>Resources</h3>
                     <ul>
@@ -866,120 +1795,249 @@
                         <li><a href="#">Investment Education</a></li>
                         <li><a href="#">Blog & Insights</a></li>
                         <li><a href="#">FAQ Section</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
                     </ul>
                 </div>
+                
                 <div class="footer-links">
-                    <h3>Contact Us</h3>
+                    <h3>Company</h3>
                     <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Johannesburg, South Africa</li>
-                        <li><i class="fas fa-phone"></i> +27 123 456 789</li>
-                        <li><i class="fas fa-envelope"></i> info@zukainvest.com</li>
-                        <li><i class="fas fa-clock"></i> Mon-Fri: 8AM-6PM</li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Our Mission</a></li>
+                        <li><a href="#">Team Members</a></li>
+                        <li><a href="#">Partnerships</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
+            
             <div class="copyright">
                 <p>&copy; 2025 ZUKA Savings and Investment. All rights reserved. Terms of Service | Privacy Policy</p>
             </div>
         </div>
     </footer>
 
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
+    <!-- WhatsApp Floating Button -->
+    <div class="whatsapp-float" id="whatsappFloat">
+        <div class="whatsapp-text">Chat with us on WhatsApp</div>
+        <a href="https://wa.me/27815876250" class="whatsapp-button" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
 
-        // Close mobile menu when clicking on links
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script>
+        // Complex Particle Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            particlesJS('particles-js', {
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: '#4361ee' },
+                    shape: { type: 'circle' },
+                    opacity: { value: 0.5, random: true },
+                    size: { value: 3, random: true },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: '#4361ee',
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: 'none',
+                        random: false,
+                        straight: false,
+                        out_mode: 'out',
+                        bounce: false
+                    }
+                },
+                interactivity: {
+                    detect_on: 'canvas',
+                    events: {
+                        onhover: { enable: true, mode: 'grab' },
+                        onclick: { enable: true, mode: 'push' },
+                        resize: true
+                    },
+                    modes: {
+                        grab: { distance: 140, line_linked: { opacity: 1 } },
+                        push: { particles_nb: 4 }
+                    }
+                },
+                retina_detect: true
             });
         });
 
-        // Header scroll effect
-        const header = document.querySelector('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-            } else {
-                header.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-                header.style.background = 'white';
-            }
+        // Loading Screen Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const loadingBar = document.getElementById('loadingBar');
+            const whatsappFloat = document.getElementById('whatsappFloat');
+            
+            // Simulate loading progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    
+                    // Fade out loading screen
+                    setTimeout(() => {
+                        loadingScreen.classList.add('fade-out');
+                        document.body.classList.add('loaded');
+                        document.getElementById('particles-js').classList.add('visible');
+                        
+                        // Show WhatsApp button after page loads
+                        setTimeout(() => {
+                            whatsappFloat.classList.add('visible');
+                        }, 1000);
+                    }, 500);
+                }
+                loadingBar.style.width = `${progress}%`;
+            }, 100);
+            
+            // Force hide loading screen after 3 seconds max
+            setTimeout(() => {
+                if (progress < 100) {
+                    loadingBar.style.width = '100%';
+                    setTimeout(() => {
+                        loadingScreen.classList.add('fade-out');
+                        document.body.classList.add('loaded');
+                        document.getElementById('particles-js').classList.add('visible');
+                        
+                        setTimeout(() => {
+                            whatsappFloat.classList.add('visible');
+                        }, 1000);
+                    }, 500);
+                }
+            }, 3000);
         });
 
-        // Animation on scroll
-        const animateElements = document.querySelectorAll('.animate-fadeInUp');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.visibility = 'visible';
+        // Mobile Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                mobileMenuBtn.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+
+            // Close mobile menu when clicking on links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
+            });
+
+            // Header scroll effect
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.12)';
+                    header.style.background = 'rgba(255, 255, 255, 0.98)';
+                    header.style.backdropFilter = 'blur(12px)';
+                } else {
+                    header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.08)';
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                    header.style.backdropFilter = 'blur(10px)';
                 }
             });
-        }, {
-            threshold: 0.1
-        });
 
-        animateElements.forEach(element => {
-            element.style.opacity = 0;
-            element.style.visibility = 'hidden';
-            element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            observer.observe(element);
-        });
+            // Animation on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
 
-        // Add solution image dynamically for better performance
-        document.addEventListener('DOMContentLoaded', () => {
-            const solutionImage = document.querySelector('.solution-image');
-            if (solutionImage) {
-                solutionImage.innerHTML = `
-                    <div style="background: linear-gradient(135deg, #118ab2 0%, #073b4c 100%); padding: 2rem; border-radius: var(--border-radius); text-align: center; height: 100%;">
-                        <div style="background: white; border-radius: var(--border-radius); padding: 1.5rem; margin-bottom: 1rem;">
-                            <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
-                                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                                    <i class="fas fa-chart-pie" style="color: white; font-size: 1.8rem;"></i>
-                                </div>
-                            </div>
-                            <h3 style="color: var(--dark); margin-bottom: 0.5rem;">Your Investment Dashboard</h3>
-                            <p style="color: var(--gray); margin-bottom: 0;">Real-time tracking of your portfolio performance and growth</p>
-                        </div>
-                        <div style="color: white; text-align: left;">
-                            <h4 style="margin-bottom: 1rem;"><i class="fas fa-lightbulb" style="margin-right: 0.5rem;"></i> Key Benefits</h4>
-                            <ul style="list-style: none; padding-left: 0;">
-                                <li style="margin-bottom: 0.5rem;">✓ Low minimum investment requirements</li>
-                                <li style="margin-bottom: 0.5rem;">✓ Automated savings plans</li>
-                                <li style="margin-bottom: 0.5rem;">✓ Expert financial guidance</li>
-                                <li style="margin-bottom: 0.5rem;">✓ Community support network</li>
-                            </ul>
-                        </div>
-                    </div>
-                `;
+            document.querySelectorAll('.animate-on-scroll').forEach(element => {
+                observer.observe(element);
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    if (this.getAttribute('href') === '#') return;
+                    
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active menu item
+                        document.querySelectorAll('.nav-links a').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                    }
+                });
+            });
+
+            // Contact form submission
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form values
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const phone = document.getElementById('phone').value;
+                    const subject = document.getElementById('subject').value;
+                    const message = document.getElementById('message').value;
+                    
+                    // Simple validation
+                    if (!name || !email || !phone || !subject || !message) {
+                        alert('Please fill in all required fields');
+                        return;
+                    }
+                    
+                    // Form submission logic
+                    const submitBtn = this.querySelector('.submit-btn');
+                    const originalText = submitBtn.innerHTML;
+                    
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Sending...</span>';
+                    submitBtn.disabled = true;
+                    
+                    // Simulate form submission
+                    setTimeout(() => {
+                        alert(`Thank you for your message, ${name}! We will respond to you within 24 hours at ${email} or ${phone}.`);
+                        contactForm.reset();
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }, 1500);
+                });
             }
-        });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+            // WhatsApp button scroll effect
+            window.addEventListener('scroll', () => {
+                const whatsappBtn = document.getElementById('whatsappFloat');
+                if (window.scrollY > 300) {
+                    whatsappBtn.classList.add('visible');
+                } else {
+                    whatsappBtn.classList.remove('visible');
                 }
             });
         });
